@@ -1,0 +1,24 @@
+# Tom Babb's Timeglass: Timeglass by Tom Babb — ivory paper, ash-black ink, muted gold cursor. Editorial light theme from the Fradel and Spies brand guide, using the Timeglass data-viz palette for ANSI colors.
+# suggested font-family: Berkeley Mono or JetBrains Mono (Inter isn't mono)
+palette = 0=#2a2521
+palette = 1=#c25555
+palette = 2=#4eaa72
+palette = 3=#e1a819
+palette = 4=#3b9ecc
+palette = 5=#c87aae
+palette = 6=#2db89e
+palette = 7=#8a8f98
+palette = 8=#6b6a66
+palette = 9=#d06161
+palette = 10=#5ab87f
+palette = 11=#a8ac44
+palette = 12=#4fa8d4
+palette = 13=#d9733a
+palette = 14=#45c0a8
+palette = 15=#1c1814
+background = #fbfbf8
+foreground = #2a2521
+cursor-color = #e1a819
+cursor-text = #fbfbf8
+selection-background = #f0e9d4
+selection-foreground = #2a2521

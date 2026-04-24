@@ -1,0 +1,584 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Ghostty Themes · Frontend Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@400;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #0a0a0f;
+    background-image:
+      radial-gradient(1200px 800px at 10% 0%, #1a1a2e 0%, transparent 55%),
+      radial-gradient(1000px 700px at 100% 100%, #2a1a3e 0%, transparent 60%);
+    color: #e8e8ef;
+    font-family: "Space Grotesk", -apple-system, system-ui, sans-serif;
+    padding: 48px 32px 96px;
+  }
+  .page-head {
+    max-width: 1400px; margin: 0 auto 40px;
+  }
+  .page-head h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  .page-head p { color: #b8bac8; max-width: 720px; margin: 0 0 4px; }
+  .page-head code { background: #1a1a24; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
+    gap: 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .card-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+  .ident h2 {
+    margin: 0 0 4px;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .ident p { margin: 0; color: #a8aabc; font-size: 13px; line-height: 1.5; max-width: 380px; }
+  .ident .font { margin-top: 6px; font-size: 12px; color: #7f8296; }
+  .ident .credit { margin-top: 4px; font-size: 11px; color: #7f8296; font-style: italic; }
+  .ident .credit code { font-style: normal; }
+  .ident code { color: #cfd1e0; background: rgba(255,255,255,0.04); padding: 1px 6px; border-radius: 4px; }
+  .meta { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .chip {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    white-space: nowrap;
+  }
+
+  .window {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+  }
+  .titlebar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 12px;
+    background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
+    border-bottom: 1px solid #111;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ff5f56; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #27c93f; }
+  .tt { margin-left: 8px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #bdbdbd; }
+
+  .term {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 16px 18px 18px;
+    min-height: 300px;
+    white-space: pre-wrap;
+  }
+  .u  { color: var(--p2); }
+  .at { color: var(--p7); opacity: 0.8; }
+  .h  { color: var(--p4); }
+  .p  { color: var(--p6); }
+  .sym { color: var(--p3); }
+  .dim { color: var(--p8); }
+  .c-r  { color: var(--p1); }
+  .c-g  { color: var(--p2); }
+  .c-y  { color: var(--p3); }
+  .c-b  { color: var(--p4); }
+  .c-m  { color: var(--p5); }
+  .c-c  { color: var(--p6); }
+  .c-br  { color: var(--p9); }
+  .c-bg  { color: var(--p10); }
+  .c-by  { color: var(--p11); }
+  .c-bb  { color: var(--p12); }
+  .c-bm  { color: var(--p13); }
+  .c-bc  { color: var(--p14); }
+  .selx { background: var(--sbg); color: var(--sfg); padding: 0 1px; }
+  .cur {
+    display: inline-block; width: 2px; height: 1.1em;
+    background: var(--cursor); margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s steps(2, start) infinite;
+    box-shadow: 0 0 6px var(--cursor);
+  }
+  @keyframes blink { to { opacity: 0; } }
+
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 3px;
+  }
+  .sw {
+    aspect-ratio: 1/1;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    min-height: 22px;
+  }
+  .sw span {
+    position: absolute;
+    inset: 0;
+    display: grid; place-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.6);
+    mix-blend-mode: difference;
+  }
+
+  .activate {
+    margin: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #9fa2b6;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
+
+  footer {
+    max-width: 1400px; margin: 40px auto 0;
+    color: #80859a;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  footer code { background: #1a1a24; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #cfd1e0; }
+  footer h3 { color: #e8e8ef; margin-bottom: 8px; }
+</style></head><body>
+
+<div class="page-head">
+  <h1>Six Ghostty themes, grown from your Frontend Architect prompt</h1>
+  <p>Each theme is one of the six <em>Design Archetypes</em> from your Raycast snippet, translated into a 16-color ANSI palette. All themes respect the prompt's rules: no pure <code>#FFFFFF</code>/<code>#000000</code>, no generic slop blue, 4.5:1 contrast on body text, and a committed palette direction.</p>
+</div>
+
+<div class="grid">
+  
+<section class="card" style="--bg:#0B1220;--fg:#E2E8F0;--cursor:#22D3EE;--ctext:#0B1220;--sbg:#1E293B;--sfg:#F1F5F9;--p0:#0F172A;--p1:#F87171;--p2:#34D399;--p3:#FBBF24;--p4:#60A5FA;--p5:#A78BFA;--p6:#22D3EE;--p7:#CBD5E1;--p8:#475569;--p9:#FCA5A5;--p10:#6EE7B7;--p11:#FDE68A;--p12:#93C5FD;--p13:#C4B5FD;--p14:#67E8F9;--p15:#F1F5F9">
+  <header class="card-head">
+    <div class="ident">
+      <h2>saas-tech</h2>
+      <p>SaaS / Tech — cool slate base, single cyan accent. Clean, systematic, trust-building.</p>
+      <p class="font">Font: <code>Geist Mono or JetBrains Mono</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #0B1220</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #22D3EE</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #1E293B</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = saas-tech</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"saas-tech"</span>
+<span class="c-by">saas-tech</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#0F172A" title="palette 0 #0F172A"><span>0</span></div><div class="sw" style="background:#F87171" title="palette 1 #F87171"><span>1</span></div><div class="sw" style="background:#34D399" title="palette 2 #34D399"><span>2</span></div><div class="sw" style="background:#FBBF24" title="palette 3 #FBBF24"><span>3</span></div><div class="sw" style="background:#60A5FA" title="palette 4 #60A5FA"><span>4</span></div><div class="sw" style="background:#A78BFA" title="palette 5 #A78BFA"><span>5</span></div><div class="sw" style="background:#22D3EE" title="palette 6 #22D3EE"><span>6</span></div><div class="sw" style="background:#CBD5E1" title="palette 7 #CBD5E1"><span>7</span></div><div class="sw" style="background:#475569" title="palette 8 #475569"><span>8</span></div><div class="sw" style="background:#FCA5A5" title="palette 9 #FCA5A5"><span>9</span></div><div class="sw" style="background:#6EE7B7" title="palette 10 #6EE7B7"><span>10</span></div><div class="sw" style="background:#FDE68A" title="palette 11 #FDE68A"><span>11</span></div><div class="sw" style="background:#93C5FD" title="palette 12 #93C5FD"><span>12</span></div><div class="sw" style="background:#C4B5FD" title="palette 13 #C4B5FD"><span>13</span></div><div class="sw" style="background:#67E8F9" title="palette 14 #67E8F9"><span>14</span></div><div class="sw" style="background:#F1F5F9" title="palette 15 #F1F5F9"><span>15</span></div></div>
+
+  <pre class="activate">theme = saas-tech</pre>
+</section>
+
+
+<section class="card" style="--bg:#FBF9F7;--fg:#1C1917;--cursor:#C2410C;--ctext:#FBF9F7;--sbg:#E7E5E4;--sfg:#1C1917;--p0:#1C1917;--p1:#9F1239;--p2:#65A30D;--p3:#A16207;--p4:#1E40AF;--p5:#86198F;--p6:#0E7490;--p7:#57534E;--p8:#78716C;--p9:#BE123C;--p10:#84CC16;--p11:#CA8A04;--p12:#2563EB;--p13:#A21CAF;--p14:#0891B2;--p15:#44403C">
+  <header class="card-head">
+    <div class="ident">
+      <h2>luxury-editorial</h2>
+      <p>Luxury / Editorial — warm cream canvas, stone ink, muted earth accents. High contrast, unhurried.</p>
+      <p class="font">Font: <code>Monaspace Xenon or Commit Mono</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #FBF9F7</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #C2410C</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #E7E5E4</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = luxury-editorial</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"luxury-editorial"</span>
+<span class="c-by">luxury-editorial</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#1C1917" title="palette 0 #1C1917"><span>0</span></div><div class="sw" style="background:#9F1239" title="palette 1 #9F1239"><span>1</span></div><div class="sw" style="background:#65A30D" title="palette 2 #65A30D"><span>2</span></div><div class="sw" style="background:#A16207" title="palette 3 #A16207"><span>3</span></div><div class="sw" style="background:#1E40AF" title="palette 4 #1E40AF"><span>4</span></div><div class="sw" style="background:#86198F" title="palette 5 #86198F"><span>5</span></div><div class="sw" style="background:#0E7490" title="palette 6 #0E7490"><span>6</span></div><div class="sw" style="background:#57534E" title="palette 7 #57534E"><span>7</span></div><div class="sw" style="background:#78716C" title="palette 8 #78716C"><span>8</span></div><div class="sw" style="background:#BE123C" title="palette 9 #BE123C"><span>9</span></div><div class="sw" style="background:#84CC16" title="palette 10 #84CC16"><span>10</span></div><div class="sw" style="background:#CA8A04" title="palette 11 #CA8A04"><span>11</span></div><div class="sw" style="background:#2563EB" title="palette 12 #2563EB"><span>12</span></div><div class="sw" style="background:#A21CAF" title="palette 13 #A21CAF"><span>13</span></div><div class="sw" style="background:#0891B2" title="palette 14 #0891B2"><span>14</span></div><div class="sw" style="background:#44403C" title="palette 15 #44403C"><span>15</span></div></div>
+
+  <pre class="activate">theme = luxury-editorial</pre>
+</section>
+
+
+<section class="card" style="--bg:#F5F5F5;--fg:#0A0A0A;--cursor:#DC2626;--ctext:#F5F5F5;--sbg:#FDE047;--sfg:#0A0A0A;--p0:#0A0A0A;--p1:#DC2626;--p2:#15803D;--p3:#CA8A04;--p4:#1D4ED8;--p5:#A21CAF;--p6:#0891B2;--p7:#404040;--p8:#737373;--p9:#EF4444;--p10:#22C55E;--p11:#EAB308;--p12:#2563EB;--p13:#D946EF;--p14:#06B6D4;--p15:#171717">
+  <header class="card-head">
+    <div class="ident">
+      <h2>brutalist-dev</h2>
+      <p>Brutalist / Dev — raw, intentional, high contrast. Primary colors, monospace-first.</p>
+      <p class="font">Font: <code>IBM Plex Mono or JetBrains Mono</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #F5F5F5</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #DC2626</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #FDE047</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = brutalist-dev</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"brutalist-dev"</span>
+<span class="c-by">brutalist-dev</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#0A0A0A" title="palette 0 #0A0A0A"><span>0</span></div><div class="sw" style="background:#DC2626" title="palette 1 #DC2626"><span>1</span></div><div class="sw" style="background:#15803D" title="palette 2 #15803D"><span>2</span></div><div class="sw" style="background:#CA8A04" title="palette 3 #CA8A04"><span>3</span></div><div class="sw" style="background:#1D4ED8" title="palette 4 #1D4ED8"><span>4</span></div><div class="sw" style="background:#A21CAF" title="palette 5 #A21CAF"><span>5</span></div><div class="sw" style="background:#0891B2" title="palette 6 #0891B2"><span>6</span></div><div class="sw" style="background:#404040" title="palette 7 #404040"><span>7</span></div><div class="sw" style="background:#737373" title="palette 8 #737373"><span>8</span></div><div class="sw" style="background:#EF4444" title="palette 9 #EF4444"><span>9</span></div><div class="sw" style="background:#22C55E" title="palette 10 #22C55E"><span>10</span></div><div class="sw" style="background:#EAB308" title="palette 11 #EAB308"><span>11</span></div><div class="sw" style="background:#2563EB" title="palette 12 #2563EB"><span>12</span></div><div class="sw" style="background:#D946EF" title="palette 13 #D946EF"><span>13</span></div><div class="sw" style="background:#06B6D4" title="palette 14 #06B6D4"><span>14</span></div><div class="sw" style="background:#171717" title="palette 15 #171717"><span>15</span></div></div>
+
+  <pre class="activate">theme = brutalist-dev</pre>
+</section>
+
+
+<section class="card" style="--bg:#1B1033;--fg:#FCE7F3;--cursor:#F472B6;--ctext:#1B1033;--sbg:#4C1D95;--sfg:#FCE7F3;--p0:#2E1065;--p1:#F43F5E;--p2:#14B8A6;--p3:#FACC15;--p4:#38BDF8;--p5:#D946EF;--p6:#2DD4BF;--p7:#FBCFE8;--p8:#6D28D9;--p9:#FB7185;--p10:#5EEAD4;--p11:#FDE047;--p12:#7DD3FC;--p13:#F0ABFC;--p14:#99F6E4;--p15:#FDF2F8">
+  <header class="card-head">
+    <div class="ident">
+      <h2>playful-consumer</h2>
+      <p>Playful / Consumer — deep violet base, saturated candy accents. Rounded, approachable.</p>
+      <p class="font">Font: <code>Monaspace Radon or Recursive Mono Casual</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #1B1033</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #F472B6</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #4C1D95</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = playful-consumer</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"playful-consumer"</span>
+<span class="c-by">playful-consumer</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#2E1065" title="palette 0 #2E1065"><span>0</span></div><div class="sw" style="background:#F43F5E" title="palette 1 #F43F5E"><span>1</span></div><div class="sw" style="background:#14B8A6" title="palette 2 #14B8A6"><span>2</span></div><div class="sw" style="background:#FACC15" title="palette 3 #FACC15"><span>3</span></div><div class="sw" style="background:#38BDF8" title="palette 4 #38BDF8"><span>4</span></div><div class="sw" style="background:#D946EF" title="palette 5 #D946EF"><span>5</span></div><div class="sw" style="background:#2DD4BF" title="palette 6 #2DD4BF"><span>6</span></div><div class="sw" style="background:#FBCFE8" title="palette 7 #FBCFE8"><span>7</span></div><div class="sw" style="background:#6D28D9" title="palette 8 #6D28D9"><span>8</span></div><div class="sw" style="background:#FB7185" title="palette 9 #FB7185"><span>9</span></div><div class="sw" style="background:#5EEAD4" title="palette 10 #5EEAD4"><span>10</span></div><div class="sw" style="background:#FDE047" title="palette 11 #FDE047"><span>11</span></div><div class="sw" style="background:#7DD3FC" title="palette 12 #7DD3FC"><span>12</span></div><div class="sw" style="background:#F0ABFC" title="palette 13 #F0ABFC"><span>13</span></div><div class="sw" style="background:#99F6E4" title="palette 14 #99F6E4"><span>14</span></div><div class="sw" style="background:#FDF2F8" title="palette 15 #FDF2F8"><span>15</span></div></div>
+
+  <pre class="activate">theme = playful-consumer</pre>
+</section>
+
+
+<section class="card" style="--bg:#0B1A2A;--fg:#E4DCC8;--cursor:#B45309;--ctext:#0B1A2A;--sbg:#1E3A5F;--sfg:#E4DCC8;--p0:#0F172A;--p1:#991B1B;--p2:#166534;--p3:#B45309;--p4:#1E3A8A;--p5:#6B21A8;--p6:#155E75;--p7:#D6CBB0;--p8:#475569;--p9:#DC2626;--p10:#22C55E;--p11:#D97706;--p12:#3B82F6;--p13:#9333EA;--p14:#0891B2;--p15:#F5F3EE">
+  <header class="card-head">
+    <div class="ident">
+      <h2>corporate-enterprise</h2>
+      <p>Corporate / Enterprise — deep navy anchor, parchment text, forest + burgundy accents.</p>
+      <p class="font">Font: <code>Berkeley Mono or SF Mono</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #0B1A2A</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #B45309</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #1E3A5F</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = corporate-enterprise</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"corporate-enterprise"</span>
+<span class="c-by">corporate-enterprise</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#0F172A" title="palette 0 #0F172A"><span>0</span></div><div class="sw" style="background:#991B1B" title="palette 1 #991B1B"><span>1</span></div><div class="sw" style="background:#166534" title="palette 2 #166534"><span>2</span></div><div class="sw" style="background:#B45309" title="palette 3 #B45309"><span>3</span></div><div class="sw" style="background:#1E3A8A" title="palette 4 #1E3A8A"><span>4</span></div><div class="sw" style="background:#6B21A8" title="palette 5 #6B21A8"><span>5</span></div><div class="sw" style="background:#155E75" title="palette 6 #155E75"><span>6</span></div><div class="sw" style="background:#D6CBB0" title="palette 7 #D6CBB0"><span>7</span></div><div class="sw" style="background:#475569" title="palette 8 #475569"><span>8</span></div><div class="sw" style="background:#DC2626" title="palette 9 #DC2626"><span>9</span></div><div class="sw" style="background:#22C55E" title="palette 10 #22C55E"><span>10</span></div><div class="sw" style="background:#D97706" title="palette 11 #D97706"><span>11</span></div><div class="sw" style="background:#3B82F6" title="palette 12 #3B82F6"><span>12</span></div><div class="sw" style="background:#9333EA" title="palette 13 #9333EA"><span>13</span></div><div class="sw" style="background:#0891B2" title="palette 14 #0891B2"><span>14</span></div><div class="sw" style="background:#F5F3EE" title="palette 15 #F5F3EE"><span>15</span></div></div>
+
+  <pre class="activate">theme = corporate-enterprise</pre>
+</section>
+
+
+<section class="card" style="--bg:#0A0A0F;--fg:#E8E8EF;--cursor:#BBF351;--ctext:#0A0A0F;--sbg:#00BCFF;--sfg:#0A0A0F;--p0:#111827;--p1:#DC2626;--p2:#BBF351;--p3:#D97706;--p4:#00BCFF;--p5:#E879F9;--p6:#22D3EE;--p7:#CBD5E1;--p8:#4B5563;--p9:#F87171;--p10:#D9F99D;--p11:#FBBF24;--p12:#7DD3FC;--p13:#F0ABFC;--p14:#67E8F9;--p15:#F3F4F6">
+  <header class="card-head">
+    <div class="ident">
+      <h2>neon</h2>
+      <p>Neon — electric lime + cyan on deep near-black. High-contrast, attention-grabbing. Uses the skill&#x27;s exact tokens (primary #BBF351, secondary #00BCFF, success/warning/danger).</p>
+      <p class="font">Font: <code>Source Code Pro (matches the skill&#x27;s mono token)</code></p>
+      <p class="credit">design.md by <code>@tombabb</code></p>
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #0A0A0F</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #BBF351</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #00BCFF</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">tombabb — ghostty · theme = neon</span>
+    </div>
+    <div class="term">
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"neon"</span>
+<span class="c-by">neon</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#111827" title="palette 0 #111827"><span>0</span></div><div class="sw" style="background:#DC2626" title="palette 1 #DC2626"><span>1</span></div><div class="sw" style="background:#BBF351" title="palette 2 #BBF351"><span>2</span></div><div class="sw" style="background:#D97706" title="palette 3 #D97706"><span>3</span></div><div class="sw" style="background:#00BCFF" title="palette 4 #00BCFF"><span>4</span></div><div class="sw" style="background:#E879F9" title="palette 5 #E879F9"><span>5</span></div><div class="sw" style="background:#22D3EE" title="palette 6 #22D3EE"><span>6</span></div><div class="sw" style="background:#CBD5E1" title="palette 7 #CBD5E1"><span>7</span></div><div class="sw" style="background:#4B5563" title="palette 8 #4B5563"><span>8</span></div><div class="sw" style="background:#F87171" title="palette 9 #F87171"><span>9</span></div><div class="sw" style="background:#D9F99D" title="palette 10 #D9F99D"><span>10</span></div><div class="sw" style="background:#FBBF24" title="palette 11 #FBBF24"><span>11</span></div><div class="sw" style="background:#7DD3FC" title="palette 12 #7DD3FC"><span>12</span></div><div class="sw" style="background:#F0ABFC" title="palette 13 #F0ABFC"><span>13</span></div><div class="sw" style="background:#67E8F9" title="palette 14 #67E8F9"><span>14</span></div><div class="sw" style="background:#F3F4F6" title="palette 15 #F3F4F6"><span>15</span></div></div>
+
+  <pre class="activate">theme = neon</pre>
+</section>
+
+
+<section class="card" style="--bg:#FBFBF8;--fg:#2A2521;--cursor:#E1A819;--ctext:#FBFBF8;--sbg:#F0E9D4;--sfg:#2A2521;--p0:#2A2521;--p1:#C25555;--p2:#4EAA72;--p3:#E1A819;--p4:#3B9ECC;--p5:#C87AAE;--p6:#2DB89E;--p7:#8A8F98;--p8:#6B6A66;--p9:#D06161;--p10:#5AB87F;--p11:#A8AC44;--p12:#4FA8D4;--p13:#D9733A;--p14:#45C0A8;--p15:#1C1814">
+  <header class="card-head">
+    <div class="ident">
+      <h2>Tom Babb&#x27;s Timeglass</h2>
+      <p>Timeglass by Tom Babb — ivory paper, ash-black ink, muted gold cursor. Editorial light theme from the Fradel and Spies brand guide, using the Timeglass data-viz palette for ANSI colors.</p>
+      <p class="font">Font: <code>Berkeley Mono or JetBrains Mono (Inter isn&#x27;t mono)</code></p>
+      <p class="credit">design.md by <code>@tombabb</code></p>
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #FBFBF8</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #E1A819</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #F0E9D4</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">tombabb — ghostty · theme = Tom Babb&#x27;s Timeglass</span>
+    </div>
+    <div class="term">
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"Tom Babb&#x27;s Timeglass"</span>
+<span class="c-by">Tom Babb&#x27;s Timeglass</span>
+
+<span class="u">tombabb</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#2A2521" title="palette 0 #2A2521"><span>0</span></div><div class="sw" style="background:#C25555" title="palette 1 #C25555"><span>1</span></div><div class="sw" style="background:#4EAA72" title="palette 2 #4EAA72"><span>2</span></div><div class="sw" style="background:#E1A819" title="palette 3 #E1A819"><span>3</span></div><div class="sw" style="background:#3B9ECC" title="palette 4 #3B9ECC"><span>4</span></div><div class="sw" style="background:#C87AAE" title="palette 5 #C87AAE"><span>5</span></div><div class="sw" style="background:#2DB89E" title="palette 6 #2DB89E"><span>6</span></div><div class="sw" style="background:#8A8F98" title="palette 7 #8A8F98"><span>7</span></div><div class="sw" style="background:#6B6A66" title="palette 8 #6B6A66"><span>8</span></div><div class="sw" style="background:#D06161" title="palette 9 #D06161"><span>9</span></div><div class="sw" style="background:#5AB87F" title="palette 10 #5AB87F"><span>10</span></div><div class="sw" style="background:#A8AC44" title="palette 11 #A8AC44"><span>11</span></div><div class="sw" style="background:#4FA8D4" title="palette 12 #4FA8D4"><span>12</span></div><div class="sw" style="background:#D9733A" title="palette 13 #D9733A"><span>13</span></div><div class="sw" style="background:#45C0A8" title="palette 14 #45C0A8"><span>14</span></div><div class="sw" style="background:#1C1814" title="palette 15 #1C1814"><span>15</span></div></div>
+
+  <pre class="activate">theme = Tom Babb&#x27;s Timeglass</pre>
+</section>
+
+
+<section class="card" style="--bg:#F4EEDB;--fg:#1A1612;--cursor:#B91C1C;--ctext:#F4EEDB;--sbg:#E6DDC4;--sfg:#1A1612;--p0:#1A1612;--p1:#B91C1C;--p2:#556B2F;--p3:#8B6914;--p4:#1E3A8A;--p5:#7C2D12;--p6:#0E7490;--p7:#3C3631;--p8:#78716C;--p9:#DC2626;--p10:#65A30D;--p11:#B45309;--p12:#2563EB;--p13:#9A3412;--p14:#0891B2;--p15:#44403C">
+  <header class="card-head">
+    <div class="ident">
+      <h2>editorial-paper</h2>
+      <p>Paper / Editorial — sepia tint, ink black, red margin-mark accent. Newsprint calm.</p>
+      <p class="font">Font: <code>iA Writer Mono or Commit Mono</code></p>
+      
+    </div>
+    <div class="meta">
+      <span class="chip" style="background:var(--bg); color:var(--fg); border-color:var(--p8)">bg #F4EEDB</span>
+      <span class="chip" style="background:var(--cursor); color:var(--ctext)">cur #B91C1C</span>
+      <span class="chip" style="background:var(--sbg); color:var(--sfg)">sel #E6DDC4</span>
+    </div>
+  </header>
+
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="tt">chilly — ghostty · theme = editorial-paper</span>
+    </div>
+    <div class="term">
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> git status
+On branch <span class="c-bg">main</span>
+Changes not staged:
+  <span class="c-r">modified:   src/theme.zig</span>
+  <span class="c-r">modified:   <span class="selx">components/card.tsx</span></span>
+Untracked:
+  <span class="c-br">preview.html</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> npm test
+<span class="c-g">✓</span> palette parses    <span class="c-g">✓</span> contrast ≥ 4.5:1
+<span class="c-g">✓</span> cursor renders    <span class="c-r">✗</span> hover animation <span class="dim">(skipped)</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> echo <span class="c-by">"editorial-paper"</span>
+<span class="c-by">editorial-paper</span>
+
+<span class="u">chilly</span><span class="at">@</span><span class="h">mbp</span> <span class="p">~/code</span>
+<span class="sym">❯</span> <span class="cur"></span>
+    </div>
+  </div>
+
+  <div class="palette"><div class="sw" style="background:#1A1612" title="palette 0 #1A1612"><span>0</span></div><div class="sw" style="background:#B91C1C" title="palette 1 #B91C1C"><span>1</span></div><div class="sw" style="background:#556B2F" title="palette 2 #556B2F"><span>2</span></div><div class="sw" style="background:#8B6914" title="palette 3 #8B6914"><span>3</span></div><div class="sw" style="background:#1E3A8A" title="palette 4 #1E3A8A"><span>4</span></div><div class="sw" style="background:#7C2D12" title="palette 5 #7C2D12"><span>5</span></div><div class="sw" style="background:#0E7490" title="palette 6 #0E7490"><span>6</span></div><div class="sw" style="background:#3C3631" title="palette 7 #3C3631"><span>7</span></div><div class="sw" style="background:#78716C" title="palette 8 #78716C"><span>8</span></div><div class="sw" style="background:#DC2626" title="palette 9 #DC2626"><span>9</span></div><div class="sw" style="background:#65A30D" title="palette 10 #65A30D"><span>10</span></div><div class="sw" style="background:#B45309" title="palette 11 #B45309"><span>11</span></div><div class="sw" style="background:#2563EB" title="palette 12 #2563EB"><span>12</span></div><div class="sw" style="background:#9A3412" title="palette 13 #9A3412"><span>13</span></div><div class="sw" style="background:#0891B2" title="palette 14 #0891B2"><span>14</span></div><div class="sw" style="background:#44403C" title="palette 15 #44403C"><span>15</span></div></div>
+
+  <pre class="activate">theme = editorial-paper</pre>
+</section>
+
+</div>
+
+<footer>
+  <h3>How to use</h3>
+  <p>Themes are installed in <code>~/.config/ghostty/themes/</code>. To activate one, edit <code>~/.config/ghostty/config</code>:</p>
+  <pre class="activate">theme = saas-tech          # or luxury-editorial, brutalist-dev, playful-consumer, corporate-enterprise, editorial-paper</pre>
+  <p>Remove your manual <code>background = …</code> / <code>foreground = …</code> / <code>cursor-color = …</code> lines so they don't override the theme. Then reload Ghostty (<code>⌘,</code> → reload config, or quit + reopen).</p>
+</footer>
+
+</body></html>

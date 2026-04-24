@@ -1,0 +1,24 @@
+# editorial-paper: Paper / Editorial — sepia tint, ink black, red margin-mark accent. Newsprint calm.
+# suggested font-family: iA Writer Mono or Commit Mono
+palette = 0=#1a1612
+palette = 1=#b91c1c
+palette = 2=#556b2f
+palette = 3=#8b6914
+palette = 4=#1e3a8a
+palette = 5=#7c2d12
+palette = 6=#0e7490
+palette = 7=#3c3631
+palette = 8=#78716c
+palette = 9=#dc2626
+palette = 10=#65a30d
+palette = 11=#b45309
+palette = 12=#2563eb
+palette = 13=#9a3412
+palette = 14=#0891b2
+palette = 15=#44403c
+background = #f4eedb
+foreground = #1a1612
+cursor-color = #b91c1c
+cursor-text = #f4eedb
+selection-background = #e6ddc4
+selection-foreground = #1a1612

@@ -1,0 +1,24 @@
+# corporate-enterprise: Corporate / Enterprise — deep navy anchor, parchment text, forest + burgundy accents.
+# suggested font-family: Berkeley Mono or SF Mono
+palette = 0=#0f172a
+palette = 1=#991b1b
+palette = 2=#166534
+palette = 3=#b45309
+palette = 4=#1e3a8a
+palette = 5=#6b21a8
+palette = 6=#155e75
+palette = 7=#d6cbb0
+palette = 8=#475569
+palette = 9=#dc2626
+palette = 10=#22c55e
+palette = 11=#d97706
+palette = 12=#3b82f6
+palette = 13=#9333ea
+palette = 14=#0891b2
+palette = 15=#f5f3ee
+background = #0b1a2a
+foreground = #e4dcc8
+cursor-color = #b45309
+cursor-text = #0b1a2a
+selection-background = #1e3a5f
+selection-foreground = #e4dcc8

@@ -1,0 +1,24 @@
+# neon: Neon — electric lime + cyan on deep near-black. High-contrast, attention-grabbing. Uses the skill's exact tokens (primary #BBF351, secondary #00BCFF, success/warning/danger).
+# suggested font-family: Source Code Pro (matches the skill's mono token)
+palette = 0=#111827
+palette = 1=#dc2626
+palette = 2=#bbf351
+palette = 3=#d97706
+palette = 4=#00bcff
+palette = 5=#e879f9
+palette = 6=#22d3ee
+palette = 7=#cbd5e1
+palette = 8=#4b5563
+palette = 9=#f87171
+palette = 10=#d9f99d
+palette = 11=#fbbf24
+palette = 12=#7dd3fc
+palette = 13=#f0abfc
+palette = 14=#67e8f9
+palette = 15=#f3f4f6
+background = #0a0a0f
+foreground = #e8e8ef
+cursor-color = #bbf351
+cursor-text = #0a0a0f
+selection-background = #00bcff
+selection-foreground = #0a0a0f
